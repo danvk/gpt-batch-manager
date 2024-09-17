@@ -8,7 +8,7 @@ import sys
 import time
 from typing import Literal, Optional, TypedDict
 
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 import openai
 
 
@@ -71,7 +71,8 @@ def is_done_batch(status: BatchStatus):
 
 
 def run(argv=sys.argv):
-    load_dotenv()
+    dotenv_path = find_dotenv(usecwd=True)
+    load_dotenv(dotenv_path=dotenv_path)
     batch_files = argv[1:]
     client = openai.OpenAI()
 
