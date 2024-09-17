@@ -69,7 +69,7 @@ def is_done_batch(status: BatchStatus):
     return status == "completed"
 
 
-def run(argv):
+def run(argv=sys.argv):
     load_dotenv()
     batch_files = argv[1:]
     client = openai.OpenAI()
@@ -205,4 +205,4 @@ def run(argv):
 
 
 if __name__ == '__main__':
-    run(sys.argv)
+    run()

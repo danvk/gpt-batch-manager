@@ -56,7 +56,7 @@ def estimate_request_tokens(req: dict) -> int:
     return int(tokens)
 
 
-def run(argv):
+def run(argv=sys.argv):
     max_tokens = int(argv[1])
 
     # First pass: estimate the costs of all inputs, assign each to a bucket
@@ -113,4 +113,4 @@ def run(argv):
 
 
 if __name__ == "__main__":
-    run(sys.argv)
+    run()
