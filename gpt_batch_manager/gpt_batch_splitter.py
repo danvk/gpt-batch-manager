@@ -101,7 +101,7 @@ def run(argv=sys.argv):
         with open(shard_pattern % (i, N), "w") as out:
             pass  # make sure to clear any existing files before appending
 
-    for input in argv[1:]:
+    for input in argv[2:]:
         for line_str in open(input):
             req = json.loads(line_str)
             id = req["custom_id"]
