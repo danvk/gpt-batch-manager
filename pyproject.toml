@@ -1,0 +1,64 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "gpt-batch-manager"
+version = "1.0.0"
+description = "Tools for splitting jobs across multiple OpenAI batches"
+license = "Apache-2.0"
+readme = "README.md"
+authors = [ "Dan Vanderkam <danvdk@gmail.com>" ]
+homepage = "https://github.com/danvk/gpt-batch-manager"
+repository = "https://github.com/danvk/gpt-batch-manager"
+keywords = [ "gpt", "openai", "batch", "splitter", "api" ]
+classifiers = [
+    "Environment :: Console",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^1.45.1"
+python-dotenv = "^1.0.1"
+binpacking = "^1.5.2"
+pillow = "^10.4.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.5"
+
+[tool.poetry.scripts]
+webdiff = "webdiff.app:run"
+git-webdiff = "webdiff.gitwebdiff:run"
+git-webshow = "webdiff.gitwebshow:run"
+
+[tool.ruff]
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+# Assume Python 3.11
+target-version = "py311"
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+# Set the line length limit used when formatting code snippets in
+# docstrings.
+#
+# This only has an effect when the `docstring-code-format` setting is
+# enabled.
+docstring-code-line-length = "dynamic"
