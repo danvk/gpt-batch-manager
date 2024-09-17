@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "gpt-batch-manager"
-version = "1.0.0"
+version = "1.0.1"
 description = "Tools for splitting jobs across multiple OpenAI batches"
 license = "Apache-2.0"
 readme = "README.md"
@@ -32,7 +32,7 @@ ruff = "^0.6.5"
 
 [tool.poetry.scripts]
 gpt-batch-splitter = "gpt_batch_manager.gpt_batch_splitter:run"
-git-batch-manager = "gpt_batch_manager.gpt_batch_splitter:run"
+gpt-batch-manager = "gpt_batch_manager.gpt_batch_manager:run"
 
 [tool.ruff]
 # Same as Black.
