@@ -16,11 +16,6 @@ def as_list(x):
     return [x]
 
 
-MAX_TOKENS = {
-    "gpt-4o-mini": 2_000_000,
-    "gpt-4o": 90_000,
-}
-
 # https://openai.com/api/pricing/
 model_image_tokens = {
     "gpt-4o-mini": (2833, 5667),
@@ -64,10 +59,12 @@ def estimate_request_tokens(req: dict) -> int:
 if __name__ == "__main__":
     total_tokens = 0
 
+    max_tokens = int(sys.argv[1])
+
     # First pass: estimate the costs of all inputs, assign each to a bucket
     id_to_cost: dict[str, int] = {}
     model = None
-    for input in sys.argv[1:]:
+    for input in sys.argv[2:]:
         for line_str in open(input):
             req = json.loads(line_str)
             m = req["body"]["model"]
@@ -83,7 +80,7 @@ if __name__ == "__main__":
             assert id not in id_to_cost, f"Duplicate id: {id}"
             id_to_cost[id] = tokens
 
-    bins = binpacking.to_constant_volume(id_to_cost, MAX_TOKENS[model] * 0.9)
+    bins = binpacking.to_constant_volume(id_to_cost, max_tokens)
     bins = binpacking.to_constant_bin_number(id_to_cost, len(bins))
 
     id_to_bin: dict[str, int] = {
