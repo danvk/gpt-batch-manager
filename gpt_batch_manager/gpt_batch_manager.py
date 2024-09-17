@@ -6,7 +6,7 @@ import hashlib
 import os
 import sys
 import time
-from typing import Optional, TypedDict, get_type_hints
+from typing import Literal, Optional, TypedDict
 
 from dotenv import load_dotenv
 import openai
@@ -20,8 +20,9 @@ def sha256sum(filename: str):
 STATUS_FILE = "/tmp/batch-status.json"
 
 # https://stackoverflow.com/q/78991776/388951
-type_hints = get_type_hints(openai.types.Batch)
-BatchStatus = type_hints["status"]
+BatchStatus = Literal[
+    "validating", "failed", "in_progress", "finalizing", "completed", "expired", "cancelling", "cancelled"
+]
 
 
 class FileStatus(TypedDict):
