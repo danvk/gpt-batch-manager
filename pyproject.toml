@@ -31,9 +31,8 @@ pillow = "^10.4.0"
 ruff = "^0.6.5"
 
 [tool.poetry.scripts]
-webdiff = "webdiff.app:run"
-git-webdiff = "webdiff.gitwebdiff:run"
-git-webshow = "webdiff.gitwebshow:run"
+gpt-batch-splitter = "gpt_batch_manager.gpt_batch_splitter:run"
+git-batch-manager = "gpt_batch_manager.gpt_batch_splitter:run"
 
 [tool.ruff]
 # Same as Black.

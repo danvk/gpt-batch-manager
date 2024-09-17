@@ -8,9 +8,9 @@ The [OpenAI Batch API] is great for submitting batch jobs, but it has some stric
 If you want to submit larger batches than your current tier allows, you'll have to split
 the work into multiple batches. This project helps you do that by providing two tools:
 
-1. `gpt_batch_splitter`: Take one or more JSONL files and split them into shards that
+1. `gpt-batch-splitter`: Take one or more JSONL files and split them into shards that
    fit within your tier batch queue limit.
-2. `gpt_batch_manager`: Submit multiple batches to OpenAI, one at a time.
+2. `gpt-batch-manager`: Submit multiple batches to OpenAI, one at a time.
 
 ## Usage
 
@@ -30,7 +30,7 @@ fit within a 2M token limit.
 
 To produce shards with fewer than 2M tokens, run:
 
-    gpt_batch_splitter 1900000 largefile1.jsonl largefile2.jsonl
+    gpt-batch-splitter 1900000 largefile1.jsonl largefile2.jsonl
 
 This will [estimate] the number of tokens in each request and divvy them up accordingly.
 It will produce output files like:
@@ -46,9 +46,9 @@ use a number somewhat below the limit.
 ### Batch Manager
 
 To stay within your batch limit, you have to submit batch files one-by-one. This is what
-`gpt_batch_manager` does. Pass it a set of JSONL files:
+`gpt-batch-manager` does. Pass it a set of JSONL files:
 
-    gpt_batch_manager shard-???-of-???.jsonl
+    gpt-batch-manager shard-???-of-???.jsonl
 
 Make sure you have an `OPENAI_API_KEY` environment variable set (see above). This will
 report the status of each batch as it progresses. Output will eventually appear in:

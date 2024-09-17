@@ -56,15 +56,13 @@ def estimate_request_tokens(req: dict) -> int:
     return int(tokens)
 
 
-if __name__ == "__main__":
-    total_tokens = 0
-
-    max_tokens = int(sys.argv[1])
+def run(argv):
+    max_tokens = int(argv[1])
 
     # First pass: estimate the costs of all inputs, assign each to a bucket
     id_to_cost: dict[str, int] = {}
     model = None
-    for input in sys.argv[2:]:
+    for input in argv[2:]:
         for line_str in open(input):
             req = json.loads(line_str)
             m = req["body"]["model"]
@@ -103,7 +101,7 @@ if __name__ == "__main__":
         with open(shard_pattern % (i, N), "w") as out:
             pass  # make sure to clear any existing files before appending
 
-    for input in sys.argv[1:]:
+    for input in argv[1:]:
         for line_str in open(input):
             req = json.loads(line_str)
             id = req["custom_id"]
@@ -112,3 +110,7 @@ if __name__ == "__main__":
             with open(shard_pattern % (shard, N), "a") as out:
                 json.dump(req, out)
                 out.write("\n")
+
+
+if __name__ == "__main__":
+    run(sys.argv)

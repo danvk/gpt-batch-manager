@@ -69,9 +69,9 @@ def is_done_batch(status: BatchStatus):
     return status == "completed"
 
 
-if __name__ == "__main__":
+def run(argv):
     load_dotenv()
-    batch_files = sys.argv[1:]
+    batch_files = argv[1:]
     client = openai.OpenAI()
 
     # For each file:
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         did_fetch_status = False
 
         def fetch_batch_status():
-            global batch_status, did_fetch_status
+            nonlocal batch_status, did_fetch_status
             did_fetch_status = True
             r = client.batches.retrieve(batch_id=batch_id)
             batch_status = r.status
@@ -202,3 +202,7 @@ if __name__ == "__main__":
             status["output_file_sha256"] = output_file_sha256
             dump_status(sha256, status)
             print(f"{batch_file}: downloaded output to {out_path}")
+
+
+if __name__ == '__main__':
+    run(sys.argv)
