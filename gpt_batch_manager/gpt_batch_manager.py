@@ -88,6 +88,13 @@ def run(argv=sys.argv):
         sha256 = sha256sum(batch_file)
         print(f"{batch_file}: {sha256}")
         status = load_status(sha256)
+        
+        # Dynamically extract endpoint url
+        with open(batch_file, 'r') as file:
+            first_line = file.readline()
+            json_obj = json.loads(first_line)
+            endpoint = json_obj.get('url', None)
+        print(f"{batch_file}: endpoint='{endpoint}'")
 
         if not status:
             status: FileStatus = {"filename": batch_file, "sha256": sha256}
@@ -110,7 +117,7 @@ def run(argv=sys.argv):
             r = client.batches.create(
                 input_file_id=file_id,
                 completion_window="24h",
-                endpoint="/v1/chat/completions",
+                endpoint=endpoint,
                 metadata={
                     "filename": batch_file,
                     "sha256": sha256,
